@@ -34,6 +34,9 @@ onMounted(() => {
   cube.position.y = 10
   cube.position.z = 20
 
+  cube.rotation.x += 0.75
+  cube.rotation.y += 0.75
+
   scene.add(cube)
 
   // 创建坐标轴
@@ -66,9 +69,6 @@ onMounted(() => {
   const ambientLight = new THREE.AmbientLight(0xaaaaaa)
 
   scene.add(ambientLight)
-
-  // cube.rotation.x += 0.5
-  // cube.rotation.y += 0.5
 
   camera.position.x = -30
   camera.position.y = 45
