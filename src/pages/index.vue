@@ -61,16 +61,17 @@ onMounted(() => {
 
   // 创建坐标轴
   const axes = new THREE.AxesHelper(100)
+  axes.setColors(new THREE.Color(0xff00ff), new THREE.Color(0xffff00), new THREE.Color(0x00ffff))
   scene.add(axes)
 
   // 创建地板
-  const planeGeometry = new THREE.PlaneGeometry(80, 80) // 几何体
+  const planeGeometry = new THREE.PlaneGeometry(250, 250) // 几何体
   const planeMaterial = new THREE.MeshLambertMaterial({ color: 0xcccccc }) // 材质
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
 
   // 位置信息
   plane.rotation.x = -0.5 * Math.PI
-  plane.position.set(-15, 0, 0)
+  plane.position.set(15, 0, 0)
   plane.receiveShadow = true
 
   scene.add(plane)
@@ -91,8 +92,8 @@ onMounted(() => {
   scene.add(ambientLight)
 
   camera.position.x = -30
-  camera.position.y = 45
-  camera.position.z = 35
+  camera.position.y = 60
+  camera.position.z = 100
   camera.lookAt(scene.position)
 
   let gap = 0
