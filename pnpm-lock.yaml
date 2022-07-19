@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^18.0.3
+  '@types/three': ^0.141.0
   '@vitejs/plugin-vue': ^2.3.3
   three: ^0.142.0
   typescript: ^4.5.4
@@ -17,6 +18,7 @@ dependencies:
 
 devDependencies:
   '@types/node': registry.npmmirror.com/@types/node/18.0.3
+  '@types/three': registry.npmmirror.com/@types/three/0.141.0
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/2.3.3_vite@2.9.14+vue@3.2.37
   typescript: registry.npmmirror.com/typescript/4.7.4
   vite: registry.npmmirror.com/vite/2.9.14
@@ -52,6 +54,20 @@ packages:
     resolution: {integrity: sha512-HzNRZtp4eepNitP+BD6k2L6DROIDG4Q0fm4x+dwfsr6LGmROENnok75VGw40628xf+iR24WeMFcHuuBDUAzzsQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/node/-/node-18.0.3.tgz}
     name: '@types/node'
     version: 18.0.3
+    dev: true
+
+  registry.npmmirror.com/@types/three/0.141.0:
+    resolution: {integrity: sha512-OJdKDgTPVBUgc+s74DYoy4aLznbFFC38Xm4ElmU1YwGNgR7GGFVvFCX7lpVgOsT6S1zSJtGdajTsOYE8/xY9nA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/three/-/three-0.141.0.tgz}
+    name: '@types/three'
+    version: 0.141.0
+    dependencies:
+      '@types/webxr': registry.npmmirror.com/@types/webxr/0.4.0
+    dev: true
+
+  registry.npmmirror.com/@types/webxr/0.4.0:
+    resolution: {integrity: sha512-LQvrACV3Pj17GpkwHwXuTd733gfY+D7b9mKdrTmLdO7vo7P/o6209Qqtk63y/FCv/lspdmi0pWz6Qe/ull9kQg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/webxr/-/webxr-0.4.0.tgz}
+    name: '@types/webxr'
+    version: 0.4.0
     dev: true
 
   registry.npmmirror.com/@vitejs/plugin-vue/2.3.3_vite@2.9.14+vue@3.2.37:
