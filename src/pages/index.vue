@@ -1,10 +1,30 @@
 <template>
   <div id="p-index"></div>
+  <div id="stats"></div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import * as THREE from 'three'
+import Stats from 'stats.js'
+
+const stats = new Stats()
+
+function addStats() {
+  function show() {
+    stats.begin()
+    stats.end()
+    requestAnimationFrame(show)
+  }
+
+  stats.dom.style.position = 'absolute'
+  stats.dom.style.left = '0'
+  stats.dom.style.right = '0'
+
+  document.getElementById('stats')?.appendChild(stats.dom)
+
+  requestAnimationFrame(show)
+}
 
 onMounted(() => {
   const { innerWidth, innerHeight } = window
@@ -34,8 +54,8 @@ onMounted(() => {
   cube.position.y = 10
   cube.position.z = 20
 
-  cube.rotation.x += 0.75
-  cube.rotation.y += 0.75
+  // cube.rotation.x += 0.75
+  // cube.rotation.y += 0.75
 
   scene.add(cube)
 
@@ -75,7 +95,22 @@ onMounted(() => {
   camera.position.z = 35
   camera.lookAt(scene.position)
 
-  renderer.render(scene, camera)
+  let gap = 0
+
+  function renderScene() {
+    cube.rotation.x += 0.01
+    cube.rotation.y += 0.01
+    cube.rotation.z += 0.01
+
+    gap += 0.01
+    cube.position.x = 25 + 20 * Math.sin(gap)
+    cube.position.y = 6 + 20 * Math.abs(Math.cos(gap))
+
+    requestAnimationFrame(renderScene)
+    renderer.render(scene, camera)
+  }
+  addStats()
+  renderScene()
 })
 </script>
 
