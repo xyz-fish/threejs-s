@@ -7,6 +7,7 @@
 import { onMounted } from 'vue'
 import * as THREE from 'three'
 import Stats from 'stats.js'
+import dat from 'dat.gui'
 
 const stats = new Stats()
 
@@ -20,6 +21,7 @@ function addStats() {
   stats.dom.style.position = 'absolute'
   stats.dom.style.left = '0'
   stats.dom.style.right = '0'
+  stats.dom.style.zIndex = '0'
 
   document.getElementById('stats')?.appendChild(stats.dom)
 
@@ -90,6 +92,13 @@ onMounted(() => {
   const ambientLight = new THREE.AmbientLight(0xaaaaaa)
 
   scene.add(ambientLight)
+  // dat.gui 输入控制变量的名称
+  const ctrlObj = { rotation: 0.01, jump: 0.01 }
+
+  const ctrl = new dat.GUI()
+  ctrl.add(ctrlObj, 'rotation', 0, 1)
+  ctrl.add(ctrlObj, 'jump', 0, 1)
+  ctrl.domElement.style.zIndex = '10'
 
   camera.position.x = -30
   camera.position.y = 60
@@ -99,11 +108,11 @@ onMounted(() => {
   let gap = 0
 
   function renderScene() {
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
-    cube.rotation.z += 0.01
+    cube.rotation.x += ctrlObj.rotation
+    cube.rotation.y += ctrlObj.rotation
+    cube.rotation.z += ctrlObj.rotation
 
-    gap += 0.01
+    gap += ctrlObj.jump
     cube.position.x = 25 + 20 * Math.sin(gap)
     cube.position.y = 6 + 20 * Math.abs(Math.cos(gap))
 
@@ -112,6 +121,18 @@ onMounted(() => {
   }
   addStats()
   renderScene()
+
+  window.addEventListener('resize', onResize, false)
+
+  function onResize() {
+    const { innerWidth, innerHeight } = window
+    // 更新摄像机的长宽比
+    camera.aspect = innerWidth / innerHeight
+    // 更新摄像机投影矩阵
+    camera.updateProjectionMatrix()
+    // 更新渲染器尺寸大小
+    renderer.setSize(innerWidth, innerHeight)
+  }
 })
 </script>
 
