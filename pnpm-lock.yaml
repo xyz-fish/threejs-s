@@ -5,6 +5,7 @@ specifiers:
   '@types/stats.js': ^0.17.0
   '@types/three': ^0.141.0
   '@vitejs/plugin-vue': ^2.3.3
+  dat.gui: ^0.7.9
   stats.js: ^0.17.0
   three: ^0.142.0
   typescript: ^4.5.4
@@ -14,6 +15,7 @@ specifiers:
   vue-tsc: ^0.34.7
 
 dependencies:
+  dat.gui: registry.npmmirror.com/dat.gui/0.7.9
   stats.js: registry.npmmirror.com/stats.js/0.17.0
   three: registry.npmmirror.com/three/0.142.0
   vue: registry.npmmirror.com/vue/3.2.37
@@ -236,6 +238,12 @@ packages:
     resolution: {integrity: sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/csstype/-/csstype-2.6.20.tgz}
     name: csstype
     version: 2.6.20
+
+  registry.npmmirror.com/dat.gui/0.7.9:
+    resolution: {integrity: sha512-sCNc1OHobc+Erc1HqiswYgHdVNpSJUlk/Hz8vzOCsER7rl+oF/4+v8GXFUyCgtXpoCX6+bnmg07DedLvBLwYKQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dat.gui/-/dat.gui-0.7.9.tgz}
+    name: dat.gui
+    version: 0.7.9
+    dev: false
 
   registry.npmmirror.com/esbuild-android-64/0.14.49:
     resolution: {integrity: sha512-vYsdOTD+yi+kquhBiFWl3tyxnj2qZJsl4tAqwhT90ktUdnyTizgle7TjNx6Ar1bN7wcwWqZ9QInfdk2WVagSww==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-android-64/-/esbuild-android-64-0.14.49.tgz}
