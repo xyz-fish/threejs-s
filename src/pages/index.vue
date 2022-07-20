@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, onBeforeUnmount } from 'vue'
 import * as THREE from 'three'
 import Stats from 'stats.js'
 import dat from 'dat.gui'
@@ -12,20 +12,16 @@ import dat from 'dat.gui'
 const stats = new Stats()
 
 function addStats() {
-  function show() {
-    stats.begin()
-    stats.end()
-    requestAnimationFrame(show)
-  }
-
   stats.dom.style.position = 'absolute'
   stats.dom.style.left = '0'
   stats.dom.style.right = '0'
   stats.dom.style.zIndex = '0'
-
-  document.getElementById('stats')?.appendChild(stats.dom)
-
-  requestAnimationFrame(show)
+  const statsContainer = document.getElementById('stats')
+  if (statsContainer) {
+    if (statsContainer.childNodes.length === 0) {
+      statsContainer.appendChild(stats.dom)
+    }
+  }
 }
 
 onMounted(() => {
@@ -73,11 +69,39 @@ onMounted(() => {
   const geometry2 = new THREE.BoxGeometry(4, 4, 4)
   const material2 = new THREE.MeshLambertMaterial({ color: 0x00ffee })
   const cube2 = new THREE.Mesh(geometry2, material2)
-
+  cube2.castShadow = true
   cube2.position.set(-10, 4, 0)
   cube2.name = 'cube2'
 
   scene.add(cube2)
+
+  // 添加一个圆环体
+  const torusGeo = new THREE.TorusGeometry(6, 2, 20, 100)
+  const torusMaterial = new THREE.MeshLambertMaterial({ color: 0x8888ff })
+  const torusCube = new THREE.Mesh(torusGeo, torusMaterial)
+  torusCube.castShadow = true
+  torusCube.position.set(12, 5, 6)
+  scene.add(torusCube)
+
+  // 添加一个圆柱体
+  const cylinderGeometry = new THREE.CylinderGeometry(3, 3, 6, 8, 7)
+  const cylinderMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+  const cylinderCube = new THREE.Mesh(cylinderGeometry, cylinderMaterial)
+  cylinderCube.castShadow = true
+  cylinderCube.position.set(4, 10, -5)
+  scene.add(cylinderCube)
+
+  // 添加自定义几何体
+  const bufferGeo = new THREE.BufferGeometry()
+  const vertices = new Float32Array([0, 0, 0, 5, 0, 0, 5, 5, 0, 10])
+
+  bufferGeo.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+  const bufferMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
+  const bufferCube = new THREE.Mesh(bufferGeo, bufferMaterial)
+
+  bufferCube.castShadow = true
+
+  scene.add(bufferCube)
 
   // 创建地板
   const planeGeometry = new THREE.PlaneGeometry(125, 125) // 几何体
@@ -86,7 +110,7 @@ onMounted(() => {
 
   // 位置信息
   plane.rotation.x = -0.5 * Math.PI
-  plane.position.set(15, 0, 0)
+  plane.position.set(15, -10, 0)
   plane.receiveShadow = true
 
   scene.add(plane)
@@ -94,11 +118,11 @@ onMounted(() => {
   // 光源
   const spotLight = new THREE.SpotLight(0xffffff)
 
-  spotLight.position.set(-60, 40, -65)
+  spotLight.position.set(-45, 60, -60)
   spotLight.castShadow = true
   spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024)
-  spotLight.shadow.camera.far = 130
-  spotLight.shadow.camera.near = 50
+  spotLight.shadow.camera.far = 150
+  spotLight.shadow.camera.near = 40
 
   scene.add(spotLight)
 
@@ -120,6 +144,7 @@ onMounted(() => {
       const geometryN = new THREE.BoxGeometry(5, 5, 5)
       const materialN = new THREE.MeshLambertMaterial({ color: 0x00ef0f })
       const cubeN = new THREE.Mesh(geometryN, materialN)
+      cubeN.castShadow = true
       cubeN.position.set(-Math.random() * 10, Math.random() * 10, Math.random() * 10)
       cubeN.rotation.set(Math.random(), Math.random(), Math.random())
       scene.add(cubeN)
@@ -146,6 +171,7 @@ onMounted(() => {
   // cube.rotation.z += 0.75
 
   function renderScene() {
+    stats.begin()
     // cube.rotation.x += ctrlObj.rotation
     // cube.rotation.y += ctrlObj.rotation
     // cube.rotation.z += ctrlObj.rotation
@@ -162,8 +188,9 @@ onMounted(() => {
       }
     })
 
-    requestAnimationFrame(renderScene)
     renderer.render(scene, camera)
+    stats.end()
+    requestAnimationFrame(renderScene)
   }
   addStats()
   renderScene()
@@ -180,6 +207,8 @@ onMounted(() => {
     renderer.setSize(innerWidth, innerHeight)
   }
 })
+
+onBeforeUnmount(() => {})
 </script>
 
 <style scoped></style>
