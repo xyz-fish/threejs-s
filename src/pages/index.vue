@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue'
+import { onMounted } from 'vue'
 import * as THREE from 'three'
 import Stats from 'stats.js'
 import dat from 'dat.gui'
@@ -207,8 +207,6 @@ onMounted(() => {
     renderer.setSize(innerWidth, innerHeight)
   }
 })
-
-onBeforeUnmount(() => {})
 </script>
 
 <style scoped></style>
